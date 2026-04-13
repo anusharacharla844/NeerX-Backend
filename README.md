@@ -6,7 +6,7 @@ By leveraging Google Earth Engine's computational capabilities, NeerX processes 
 **Problem Statement**\
 Traditional water quality monitoring requires physical sample collection and laboratory testing, which is time-consuming, expensive, and limited to specific locations. NeerX solves this by leveraging free satellite data to provide instant, wide-area water quality assessment.
 
-**Solution**
+**Solution**\
 Using Google Earth Engine's computational capabilities, NeerX processes Sentinel-2 satellite imagery to generate:
 Water quality parameter maps
 Concentration trends over time
