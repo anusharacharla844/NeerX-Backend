@@ -6,7 +6,8 @@ By leveraging Google Earth Engine's computational capabilities, NeerX processes 
 ### Dashboard View
 ![Dashboard](interface.png)
 
-✨ Features \
+✨### Features \
+\
 🗺️ Interactive Map - Draw ROI (Region of Interest) on satellite imagery
 
 📊 Water Quality Parameters - Analyze 6 key parameters:
