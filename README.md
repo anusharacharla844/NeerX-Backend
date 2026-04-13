@@ -3,7 +3,7 @@ NeerX is a mobile application that analyzes water quality parameters using multi
 
 By leveraging Google Earth Engine's computational capabilities, NeerX processes satellite data to generate water quality maps, concentration trends, and area distribution reports - all accessible through an intuitive mobile interface.
 
-✨ Features\\
+✨ Features \n
 🗺️ Interactive Map - Draw ROI (Region of Interest) on satellite imagery
 
 📊 Water Quality Parameters - Analyze 6 key parameters:
