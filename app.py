@@ -7,6 +7,17 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({
+        "status": "online",
+        "message": "AquaSight Backend is running",
+        "endpoints": {
+            "health": "/health",
+            "analyze": "/analyze (POST)"
+        }
+    })
+    
 # Debug: Print environment variables (remove after debugging)
 print("=== DEBUGGING EARTH ENGINE AUTH ===")
 print(f"EE_ACCOUNT exists: {bool(os.environ.get('EE_ACCOUNT'))}")
