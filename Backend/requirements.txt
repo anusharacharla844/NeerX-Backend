@@ -2,3 +2,6 @@ Flask==2.3.3
 flask-cors==4.0.0
 google-cloud-aiplatform
 earthengine-api
+gunicorn==21.2.0
+earthengine-api==0.1.384
+google-cloud-storage==2.10.0
