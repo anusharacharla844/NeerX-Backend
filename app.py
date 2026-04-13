@@ -11,36 +11,55 @@ CORS(app)
 print("=== DEBUGGING EARTH ENGINE AUTH ===")
 print(f"EE_ACCOUNT exists: {bool(os.environ.get('EE_ACCOUNT'))}")
 print(f"EARTH_ENGINE_KEY exists: {bool(os.environ.get('EARTH_ENGINE_KEY'))}")
+print(f"Type of EARTH_ENGINE_KEY: {type(os.environ.get('EARTH_ENGINE_KEY'))}")
 
 # Initialize Earth Engine
-try:
-    if os.environ.get('EARTH_ENGINE_KEY') and os.environ.get('EE_ACCOUNT'):
-        print("Using Service Account Authentication...")
-        service_account = os.environ.get('EE_ACCOUNT')
-        key_json = json.loads(os.environ.get('EARTH_ENGINE_KEY'))
-        credentials = ee.ServiceAccountCredentials(service_account, key_data=key_json)
-        ee.Initialize(credentials)
-        print("SUCCESS: Earth Engine Initialized with Service Account")
-    else:
-        print("Using Default Authentication (Local)...")
-        ee.Initialize(project='ee-anusharacharla844')
-        print("SUCCESS: Earth Engine Initialized Locally")
-except Exception as e:
-    print(f"ERROR: {e}")
+def init_earth_engine():
+    try:
+        # Check if we have service account credentials
+        ee_account = os.environ.get('EE_ACCOUNT')
+        ee_key = os.environ.get('EARTH_ENGINE_KEY')
+        
+        if ee_account and ee_key:
+            print("Using Service Account Authentication...")
+            
+            # Check if ee_key is already a dict or string
+            if isinstance(ee_key, dict):
+                # Already a dictionary, use directly
+                key_data = ee_key
+                print("EARTH_ENGINE_KEY is already a dict")
+            else:
+                # It's a string, parse it
+                try:
+                    key_data = json.loads(ee_key)
+                    print("Successfully parsed EARTH_ENGINE_KEY as JSON string")
+                except json.JSONDecodeError as e:
+                    print(f"Failed to parse JSON: {e}")
+                    # Try to fix common issues
+                    # Remove any extra quotes or whitespace
+                    cleaned_key = ee_key.strip().strip('"').strip("'")
+                    key_data = json.loads(cleaned_key)
+                    print("Successfully parsed after cleaning")
+            
+            # Initialize with service account
+            credentials = ee.ServiceAccountCredentials(ee_account, key_data=key_data)
+            ee.Initialize(credentials)
+            print("SUCCESS: Earth Engine Initialized with Service Account")
+            return True
+        else:
+            print("Using Default Authentication (Local)...")
+            ee.Initialize(project='ee-anusharacharla844')
+            print("SUCCESS: Earth Engine Initialized Locally")
+            return True
+    except Exception as e:
+        print(f"ERROR initializing Earth Engine: {e}")
+        print(f"Error type: {type(e)}")
+        import traceback
+        traceback.print_exc()
+        return False
 
-from flask import Flask, request, jsonify
-from flask_cors import CORS
-import ee
-
-# Initialize Earth Engine
-try:
-    ee.Initialize(project='ee-anusharacharla844') 
-    print("SUCCESS: Earth Engine Initialized")
-except Exception as e:
-    print(f"ERROR: {e}")
-
-app = Flask(__name__)
-CORS(app)
+# Initialize on startup
+init_earth_engine()
 
 # Parameter Configuration Legend
 PARAM_CONFIG = {
@@ -182,6 +201,15 @@ def analyze():
     except Exception as e:
         print(f"Final Error: {str(e)}")
         return jsonify({"status": "error", "message": str(e)})
+
+@app.route('/health', methods=['GET'])
+def health():
+    """Health check endpoint"""
+    return jsonify({
+        "status": "healthy",
+        "ee_initialized": True,
+        "message": "AquaSight Backend is running"
+    })
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
