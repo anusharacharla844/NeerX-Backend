@@ -16,6 +16,7 @@ Accuracy comparison with in-situ data
 
 ### Dashboard View
 ![Dashboard](interface.png)
+<img width="930" height="424" alt="Screenshot 2026-04-11 153047" src="https://github.com/user-attachments/assets/4760fd59-cedf-4a9b-b412-09e134bbc855" />
 
 ✨ Features  
 
