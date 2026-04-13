@@ -1,3 +1,28 @@
+import os
+import json
+import ee
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app)
+
+# Initialize Earth Engine with service account for production
+try:
+    # Check if running on Render (has environment variable)
+    if os.environ.get('EARTH_ENGINE_KEY'):
+        service_account = os.environ.get('EE_ACCOUNT', 'your-service-account@project.iam.gserviceaccount.com')
+        key_json = json.loads(os.environ.get('EARTH_ENGINE_KEY'))
+        credentials = ee.ServiceAccountCredentials(service_account, key_data=key_json)
+        ee.Initialize(credentials)
+        print("SUCCESS: Earth Engine Initialized with Service Account")
+    else:
+        # Local development
+        ee.Initialize(project='ee-anusharacharla844')
+        print("SUCCESS: Earth Engine Initialized Locally")
+except Exception as e:
+    print(f"ERROR: {e}")
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import ee
