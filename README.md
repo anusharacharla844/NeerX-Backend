@@ -1,12 +1,12 @@
-📱 Abstract\
+**📱Abstract**\
 NeerX is a mobile application that analyzes water quality parameters using multispectral satellite imagery from Sentinel-2 satellites. The app provides real-time analysis of critical water quality indicators including Chlorophyll-a, Turbidity, Secchi Depth, TSS, CDOM, and Cyanobacteria levels.
 By leveraging Google Earth Engine's computational capabilities, NeerX processes satellite data to generate water quality maps, concentration trends, and area distribution reports - all accessible through an intuitive mobile interface.
 
 
-Problem Statement
+**Problem Statement**\
 Traditional water quality monitoring requires physical sample collection and laboratory testing, which is time-consuming, expensive, and limited to specific locations. NeerX solves this by leveraging free satellite data to provide instant, wide-area water quality assessment.
 
-Solution
+**Solution**
 Using Google Earth Engine's computational capabilities, NeerX processes Sentinel-2 satellite imagery to generate:
 Water quality parameter maps
 Concentration trends over time
@@ -18,7 +18,7 @@ Accuracy comparison with in-situ data
 ![Dashboard](interface.png)
 <img width="930" height="424" alt="Screenshot 2026-04-11 153047" src="https://github.com/user-attachments/assets/4760fd59-cedf-4a9b-b412-09e134bbc855" />
 
-✨ Features  
+**✨ Features**
 
 🗺️ Interactive Map - Draw ROI (Region of Interest) on satellite imagery
 📊 Water Quality Parameters - Analyze 6 key parameters:
@@ -34,7 +34,7 @@ Cyanobacteria (cells/mL)
 🎨 Color-Coded Legends - Easy-to-understand visual indicators (Good/Moderate/Risk)
 
 
-🚀 Steps to Run
+**🚀 Steps to Run**
 
 1. Draw Region of Interest (ROI)
 Click "Draw ROI" button
