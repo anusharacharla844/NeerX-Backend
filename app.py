@@ -7,17 +7,22 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-# Initialize Earth Engine with service account for production
+# Debug: Print environment variables (remove after debugging)
+print("=== DEBUGGING EARTH ENGINE AUTH ===")
+print(f"EE_ACCOUNT exists: {bool(os.environ.get('EE_ACCOUNT'))}")
+print(f"EARTH_ENGINE_KEY exists: {bool(os.environ.get('EARTH_ENGINE_KEY'))}")
+
+# Initialize Earth Engine
 try:
-    # Check if running on Render (has environment variable)
-    if os.environ.get('EARTH_ENGINE_KEY'):
-        service_account = os.environ.get('EE_ACCOUNT', 'your-service-account@project.iam.gserviceaccount.com')
+    if os.environ.get('EARTH_ENGINE_KEY') and os.environ.get('EE_ACCOUNT'):
+        print("Using Service Account Authentication...")
+        service_account = os.environ.get('EE_ACCOUNT')
         key_json = json.loads(os.environ.get('EARTH_ENGINE_KEY'))
         credentials = ee.ServiceAccountCredentials(service_account, key_data=key_json)
         ee.Initialize(credentials)
         print("SUCCESS: Earth Engine Initialized with Service Account")
     else:
-        # Local development
+        print("Using Default Authentication (Local)...")
         ee.Initialize(project='ee-anusharacharla844')
         print("SUCCESS: Earth Engine Initialized Locally")
 except Exception as e:
