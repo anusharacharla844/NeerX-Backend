@@ -11,7 +11,6 @@ CORS(app)
 print("=== DEBUGGING EARTH ENGINE AUTH ===")
 print(f"EE_ACCOUNT exists: {bool(os.environ.get('EE_ACCOUNT'))}")
 print(f"EARTH_ENGINE_KEY exists: {bool(os.environ.get('EARTH_ENGINE_KEY'))}")
-print(f"Type of EARTH_ENGINE_KEY: {type(os.environ.get('EARTH_ENGINE_KEY'))}")
 
 # Initialize Earth Engine
 def init_earth_engine():
@@ -23,26 +22,20 @@ def init_earth_engine():
         if ee_account and ee_key:
             print("Using Service Account Authentication...")
             
-            # Check if ee_key is already a dict or string
-            if isinstance(ee_key, dict):
-                # Already a dictionary, use directly
-                key_data = ee_key
-                print("EARTH_ENGINE_KEY is already a dict")
+            # IMPORTANT: ee.ServiceAccountCredentials expects the JSON as a STRING, not a dict
+            # If ee_key is already a string, use it directly
+            if isinstance(ee_key, str):
+                print("EARTH_ENGINE_KEY is a string, using directly")
+                # The key_data parameter expects the JSON as a string
+                credentials = ee.ServiceAccountCredentials(ee_account, key_data=ee_key)
+                print("Successfully created credentials with string")
             else:
-                # It's a string, parse it
-                try:
-                    key_data = json.loads(ee_key)
-                    print("Successfully parsed EARTH_ENGINE_KEY as JSON string")
-                except json.JSONDecodeError as e:
-                    print(f"Failed to parse JSON: {e}")
-                    # Try to fix common issues
-                    # Remove any extra quotes or whitespace
-                    cleaned_key = ee_key.strip().strip('"').strip("'")
-                    key_data = json.loads(cleaned_key)
-                    print("Successfully parsed after cleaning")
+                # If it's a dict, convert back to string
+                print("EARTH_ENGINE_KEY is a dict, converting to string")
+                key_string = json.dumps(ee_key)
+                credentials = ee.ServiceAccountCredentials(ee_account, key_data=key_string)
+                print("Successfully created credentials after conversion")
             
-            # Initialize with service account
-            credentials = ee.ServiceAccountCredentials(ee_account, key_data=key_data)
             ee.Initialize(credentials)
             print("SUCCESS: Earth Engine Initialized with Service Account")
             return True
@@ -207,7 +200,6 @@ def health():
     """Health check endpoint"""
     return jsonify({
         "status": "healthy",
-        "ee_initialized": True,
         "message": "AquaSight Backend is running"
     })
 
