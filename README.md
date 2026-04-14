@@ -68,6 +68,6 @@ Download GeoTIFF	Satellite layer
 DOWNLOAD COMPLETE REPORT	HTML report
 
 
-**⚠️ Important Note**
+**⚠️ Important Note** \
 The working app code as an Android Studio zip file is available in the **`master` branch** of this repository.
 
