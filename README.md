@@ -16,7 +16,11 @@ Accuracy comparison with in-situ data
 
 ### Dashboard View
 ![Dashboard](images/interface.png)
-![Monthl-yChart](images/monthly-chart.png)
+
+**Monthly Chart**
+![Monthly-Chart](images/monthly-chart.png)
+
+**Area Calculation**
 ![Area-Calculation](images/area-calculation.png)
 
 **✨ Features**
