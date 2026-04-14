@@ -15,9 +15,9 @@ Accuracy comparison with in-situ data
 
 
 ### Dashboard View
-![Dashboard](interface.png)
-![1](Screenshot 2026-04-14 022504.png)
-![2](Screenshot 2026-04-14 022519.png)
+![Dashboard]("interface.png")
+![1]("Screenshot 2026-04-14 022504.png")
+![2]("Screenshot 2026-04-14 022519.png")
 <img width="919" height="450" alt="Screenshot 2026-04-14 022519" src="https://github.com/user-attachments/assets/c7ec6721-22dc-41fb-9221-caee088d4f9a" />
 
 
