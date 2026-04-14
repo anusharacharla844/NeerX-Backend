@@ -16,7 +16,7 @@ Accuracy comparison with in-situ data
 
 ### Dashboard View
 ![Dashboard](images/interface.png)
-\
+
 ### Monthly Chart
 ![Monthly-Chart](images/monthly-chart.png)
 
